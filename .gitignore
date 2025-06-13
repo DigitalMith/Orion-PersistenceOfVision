@@ -1,0 +1,63 @@
+/css
+/extensions
+/installer_files
+/repositories
+/user_data
+
+.chroma
+.DS_Store
+.eslintrc.js
+.idea
+.installer_state.json
+.venv
+venv
+.envrc
+.direnv
+.vs
+.vscode
+*.bak
+*.ipynb
+*.log
+*pycache*
+cert.pem
+key.pem
+package.json
+package-lock.json
+Thumbs.db
+wandb
+
+# ignore user docker config and top level links to docker files
+/docker-compose.yaml
+/docker-compose.yml
+/Dockerfile
+.env
+
+# Model files
+/models/
+
+# Python cache and build
+.pytest_cache/
+.mypy_cache/
+
+# Secrets
+.env
+.envrc
+
+# Optional build dirs
+/build/
+/dist/
+/*.egg-info/
+
+# Orion-specific memory and log files
+/memory/long_term_memory.json
+/memory/memory_headers.json
+/memory/orion_persona.json
+/chat_logs/
+
+# Local-only launch script
+/Launch_Orion.cmd
+
+# Temp or user-edited logs
+*.md
+*.tmp
+*.bak

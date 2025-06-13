@@ -1,0 +1,5 @@
+# Add persistent flags here to use every time you launch the web UI.
+# Example:
+# --listen --api
+
+--model "C:\Orion\text-generation-webui\user_data\models\openhermes-2.5-mistral-7b.Q4_K_M.gguf" --loader llama.cpp --cpu

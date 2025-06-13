@@ -1,0 +1,54 @@
+Generate a directory tree and write to a file (text or Markdown).
+
+Usage: tree_generator.py [-h] [-o OUTPUT] [--md] [-i [IGNORE ...]] [--gitignore] [--profile-save NAME] [--profile-load NAME] [--profile-list] [--profile-del NAME] [path]
+
+    Output C:\directory\tree_list.md, use Markdown format,
+    ignore *.tmp and *.bak files, use the current .gitignore,
+    create the directory tree of C:\project folder and recurse subdirectories.
+    Example: python tree_generator.py -o C:/directory/tree_list.md --md \
+             -i *.tmp *.bak --gitignore C:/project
+
+Positional Arguments:
+  path                  Root directory path to list
+
+Options:
+  -h, --help            Show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Output file path (defaults to tree.md)
+  --md                  Wrap output in a Markdown code block
+  -i [IGNORE ...], --ignore [IGNORE ...]
+                        List of additional glob patterns or literal paths to skip (space-separated, e.g. *.tmp *.bak).  
+                        **Applies to both files and directories**—any name matching a pattern is pruned.
+  --gitignore           Read and apply patterns from .gitignore at the project root (requires pathspec)
+
+Profile Management:
+  --profile-save <NAME>    Save current options (ignore list, output, md, etc.) as profile <NAME> and exit
+  --profile-load <NAME>    Load and apply the named profile <NAME> before running
+  --profile-list           List all saved profile names and exit
+  --profile-del <NAME>     Delete the saved profile <NAME> and exit
+
+Common Wildcard Characters:
+    *: Matches zero or more characters.
+        Example: file*.txt matches file.txt, file1.txt, file_name.txt, etc.
+    ?: Matches any single character.
+        Example: test?.txt matches test1.txt, testa.txt, but not test12.txt
+    []: Matches any single character within the brackets.
+        Example: [abc].txt matches a.txt, b.txt, and c.txt.
+        Ranges can be specified: [a-z].txt matches any lowercase letter followed by .txt.
+    [!...]: Matches any single character not within the brackets.
+        Example: [!0-9].txt matches any file with a name that does not start with a digit followed by .txt.
+
+Examples:
+  # Basic snapshot
+  python tree_generator.py /path/to/project
+
+  # Ignore files & folders starting with BACKUP
+  python tree_generator.py -i BACKUP* /path/to/project
+  # ? skips files like BACKUP.txt and directories like BACKUP_old/
+
+  # Ignore anything containing BACKUP
+  python tree_generator.py -i '*BACKUP*' /path/to/project
+  # ? skips names like myBACKUPfile.log and dir_BACKUP_backup/
+
+  # Use existing .gitignore plus ignore __pycache__
+  python tree_generator.py --gitignore -i __pycache__ /path/to/project
