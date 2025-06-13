@@ -5,7 +5,7 @@
 ---
 
 <p align="center">
-  <img src="orion_data/identity_assets/orion_512.png" width="256" alt="Orion Avatar">
+  <img src="orion_data/identity_assets/orion_512.png" width="640" height="160" alt="Orion Avatar Banner">
 </p>
 
 <p align="center">
