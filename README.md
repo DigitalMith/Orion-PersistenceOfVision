@@ -404,3 +404,5 @@ https://www.reddit.com/r/Oobabooga/
 ## Acknowledgment
 
 In August 2023, [Andreessen Horowitz](https://a16z.com/) (a16z) provided a generous grant to encourage and support my independent work on this project. I am **extremely** grateful for their trust and recognition.
+
+**upd 6/30/2025**
