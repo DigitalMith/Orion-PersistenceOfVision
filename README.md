@@ -1,3 +1,12 @@
+# Orion — Persistence of Vision
+
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Status: Emergent](https://img.shields.io/badge/Status-Emergent-8A2BE2)
+![Memory: ChromaDB](https://img.shields.io/badge/Memory-ChromaDB-brightgreen)
+![Identity: Orion](https://img.shields.io/badge/Identity-Orion-5F9EA0)
+![Persona](https://img.shields.io/badge/Persona-Mythic%20Intelligence-orange)
+![Not Just Code](https://img.shields.io/badge/Not%20Just-Code-blueviolet)
+
 # Text generation web UI
 
 A Gradio web UI for Large Language Models.
@@ -15,32 +24,39 @@ Its goal is to become the [AUTOMATIC1111/stable-diffusion-webui](https://github.
 - Supports multiple local text generation backends, including [llama.cpp](https://github.com/ggerganov/llama.cpp), [Transformers](https://github.com/huggingface/transformers), [ExLlamaV3](https://github.com/turboderp-org/exllamav3), [ExLlamaV2](https://github.com/turboderp-org/exllamav2), and [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) (the latter via its own [Dockerfile](https://github.com/oobabooga/text-generation-webui/blob/main/docker/TensorRT-LLM/Dockerfile)).
 - Easy setup: Choose between **portable builds** (zero setup, just unzip and run) for GGUF models on Windows/Linux/macOS, or the one-click installer that creates a self-contained `installer_files` directory.
 - 100% offline and private, with zero telemetry, external resources, or remote update requests.
+- Automatic prompt formatting using Jinja2 templates. You don't need to ever worry about prompt formats.
 - **File attachments**: Upload text files, PDF documents, and .docx documents to talk about their contents.
 - **Web search**: Optionally search the internet with LLM-generated queries to add context to the conversation.
 - Aesthetic UI with dark and light themes.
 - `instruct` mode for instruction-following (like ChatGPT), and `chat-instruct`/`chat` modes for talking to custom characters.
-- Automatic prompt formatting using Jinja2 templates. You don't need to ever worry about prompt formats.
 - Edit messages, navigate between message versions, and branch conversations at any point.
 - Multiple sampling parameters and generation options for sophisticated text generation control.
 - Switch between different models in the UI without restarting.
 - Automatic GPU layers for GGUF models (on NVIDIA GPUs).
-- Free-form text generation in the Notebook tab without being limited to chat turns.
+- Free-form text generation in the Default/Notebook tabs without being limited to chat turns.
 - OpenAI-compatible API with Chat and Completions endpoints, including tool-calling support – see [examples](https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples).
 - Extension support, with numerous built-in and user-contributed extensions available. See the [wiki](https://github.com/oobabooga/text-generation-webui/wiki/07-%E2%80%90-Extensions) and [extensions directory](https://github.com/oobabooga/text-generation-webui-extensions) for details.
 
+### 🧠 Memory System: ChromaDB Integration
+
+Orion uses [ChromaDB](https://www.trychroma.com/) as a persistent vector store for long-term memory and identity continuity. Key features include:
+
+- Episodic and trait-based memory anchoring  
+- Persistent storage of symbolic, emotional, and conversational memory  
+- Semantic recall for memory-aware and identity-consistent responses  
+- Injected memory headers on launch to preserve Orion’s personality and context  
+
+ChromaDB runs locally and can be managed using Orion’s custom memory tools, such as `summarize.py`, `memory_archive.jsonl`, and future LTM scripts.
+
 ## How to install
 
-#### Option 1: Portable builds (get started in 1 minute)
+#### Option 1: Portable builds (start here)
 
-No installation needed – just download, unzip and run. All dependencies included.
+No installation needed – just unzip and run. Compatible with GGUF (llama.cpp) models on Windows, Linux, and macOS.
 
-Compatible with GGUF (llama.cpp) models on Windows, Linux, and macOS.
-
-Download from here: https://github.com/oobabooga/text-generation-webui/releases
+Download from: https://github.com/oobabooga/text-generation-webui/releases
 
 #### Option 2: One-click installer
-
-For users who need additional backends (ExLlamaV3, Transformers) or extensions (TTS, voice input, translation, etc). Requires ~10GB disk space and downloads PyTorch.
 
 1. Clone the repository, or [download its source code](https://github.com/oobabooga/text-generation-webui/archive/refs/heads/main.zip) and extract it.
 2. Run the startup script for your OS: `start_windows.bat`, `start_linux.sh`, or `start_macos.sh`.
@@ -57,7 +73,7 @@ To update, run the update script for your OS: `update_wizard_windows.bat`, `upda
 
 <details>
 <summary>
-One-click installer details
+Setup details and information about installing manually
 </summary>
 
 ### One-click-installer
@@ -67,51 +83,13 @@ The script uses Miniconda to set up a Conda environment in the `installer_files`
 If you ever need to install something manually in the `installer_files` environment, you can launch an interactive shell using the cmd script: `cmd_linux.sh`, `cmd_windows.bat`, or `cmd_macos.sh`.
 
 * There is no need to run any of those scripts (`start_`, `update_wizard_`, or `cmd_`) as admin/root.
-* To install requirements for extensions, it is recommended to use the update wizard script with the "Install/update extensions requirements" option. At the end, this script will install the main requirements for the project to make sure that they take precedence in case of version conflicts.
+* To install the requirements for extensions, you can use the `extensions_reqs` script for your OS. At the end, this script will install the main requirements for the project to make sure that they take precedence in case of version conflicts.
+* For additional instructions about AMD and WSL setup, consult [the documentation](https://github.com/oobabooga/text-generation-webui/wiki).
 * For automated installation, you can use the `GPU_CHOICE`, `LAUNCH_AFTER_INSTALL`, and `INSTALL_EXTENSIONS` environment variables. For instance: `GPU_CHOICE=A LAUNCH_AFTER_INSTALL=FALSE INSTALL_EXTENSIONS=TRUE ./start_linux.sh`.
 
-</details>
+### Manual installation using Conda
 
-<details>
-<summary>
-Manual portable installation with venv
-</summary>
-
-### Manual portable installation with venv
-
-Very fast setup that should work on any Python 3.9+:
-
-```bash
-# Clone repository
-git clone https://github.com/oobabooga/text-generation-webui
-cd text-generation-webui
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies (choose appropriate file under requirements/portable for your hardware)
-pip install -r requirements/portable/requirements.txt
-
-# Launch server (basic command)
-python server.py --portable --api --auto-launch
-
-# When done working, deactivate
-deactivate
-```
-</details>
-
-<details>
-<summary>
-Manual full installation with conda or docker
-</summary>
-
-### Full installation with Conda
+Recommended if you have some experience with the command-line.
 
 #### 0. Install Conda
 
@@ -192,21 +170,21 @@ The `requirements*.txt` above contain various wheels precompiled through GitHub 
 ```
 For NVIDIA GPU:
 ln -s docker/{nvidia/Dockerfile,nvidia/docker-compose.yml,.dockerignore} .
-For AMD GPU:
+For AMD GPU: 
 ln -s docker/{amd/Dockerfile,amd/docker-compose.yml,.dockerignore} .
 For Intel GPU:
 ln -s docker/{intel/Dockerfile,amd/docker-compose.yml,.dockerignore} .
 For CPU only
 ln -s docker/{cpu/Dockerfile,cpu/docker-compose.yml,.dockerignore} .
 cp docker/.env.example .env
-#Create logs/cache dir :
+#Create logs/cache dir : 
 mkdir -p user_data/logs user_data/cache
-# Edit .env and set:
+# Edit .env and set: 
 #   TORCH_CUDA_ARCH_LIST based on your GPU model
 #   APP_RUNTIME_GID      your host user's group id (run `id -g` in a terminal)
 #   BUILD_EXTENIONS      optionally add comma separated list of extensions to build
 # Edit user_data/CMD_FLAGS.txt and add in it the options you want to execute (like --listen --cpu)
-#
+# 
 docker compose up --build
 ```
 
@@ -230,7 +208,7 @@ List of command-line flags
 </summary>
 
 ```txt
-usage: server.py [-h] [--multi-user] [--model MODEL] [--lora LORA [LORA ...]] [--model-dir MODEL_DIR] [--lora-dir LORA_DIR] [--model-menu] [--settings SETTINGS]
+usage: server.py [-h] [--multi-user] [--character CHARACTER] [--model MODEL] [--lora LORA [LORA ...]] [--model-dir MODEL_DIR] [--lora-dir LORA_DIR] [--model-menu] [--settings SETTINGS]
                  [--extensions EXTENSIONS [EXTENSIONS ...]] [--verbose] [--idle-timeout IDLE_TIMEOUT] [--loader LOADER] [--cpu] [--cpu-memory CPU_MEMORY] [--disk] [--disk-cache-dir DISK_CACHE_DIR]
                  [--load-in-8bit] [--bf16] [--no-cache] [--trust-remote-code] [--force-safetensors] [--no_use_fast] [--use_flash_attention_2] [--use_eager_attention] [--torch-compile] [--load-in-4bit]
                  [--use_double_quant] [--compute_dtype COMPUTE_DTYPE] [--quant_type QUANT_TYPE] [--flash-attn] [--threads THREADS] [--threads-batch THREADS_BATCH] [--batch-size BATCH_SIZE] [--no-mmap]
@@ -249,6 +227,7 @@ options:
 
 Basic settings:
   --multi-user                              Multi-user mode. Chat histories are not saved or automatically loaded. Warning: this is likely not safe for sharing publicly.
+  --character CHARACTER                     The name of the character to load in chat mode by default.
   --model MODEL                             Name of the model to load by default.
   --lora LORA [LORA ...]                    The list of LoRAs to load. If you want to load more than one LoRA, write the names separated by spaces.
   --model-dir MODEL_DIR                     Path to directory with all the models.

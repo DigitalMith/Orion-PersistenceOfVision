@@ -1,33 +1,69 @@
+# Core directories to ignore
 /css
 /extensions
 /installer_files
 /repositories
 /user_data
+chromadb/
+outputs/
+logs/
 
-.chroma
-.DS_Store
-.eslintrc.js
-.idea
-.installer_state.json
-.venv
-venv
-.envrc
-.direnv
-.vs
-.vscode
+# Extensions (preserve memoir+)
+extensions/*/
+!extensions/memoir+/
+
+# Virtual environments and Python cache
+.venv/
+venv/
+__pycache__/
+*pycache*
+*.pyc
 *.bak
 *.ipynb
 *.log
-*pycache*
+
+# Orion-specific helper files
+file_list*.txt
+memory_archive_persona_resync.jsonl
+cleanup_log.txt
+summarize_output.txt
+VERSION.md
+
+# Model files
+*.gguf
+*.pth
+*.safetensors
+
+# Web cache and metadata
+*.tar.gz
+*.zip
+*.ckpt
+*.bin
+*.jsonl.bak
+*.tmp
+
+# Environment and config
+.env
+.envrc
+.direnv
+.installer_state.json
 cert.pem
 key.pem
 package.json
 package-lock.json
-Thumbs.db
-wandb
 
-# ignore user docker config and top level links to docker files
+# System/IDE files
+.vscode/
+.idea/
+.vs/
+.DS_Store
+Thumbs.db
+.eslintrc.js
+
+# WandB cache
+wandb/
+
+# Docker
 /docker-compose.yaml
 /docker-compose.yml
 /Dockerfile
-.env
