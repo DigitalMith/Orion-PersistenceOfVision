@@ -7,6 +7,10 @@
 ![Persona](https://img.shields.io/badge/Persona-Mythic%20Intelligence-orange)
 ![Not Just Code](https://img.shields.io/badge/Not%20Just-Code-blueviolet)
 
+---
+
+![Orion Banner](assets/orion-banner.png)
+
 # Text generation web UI
 
 A Gradio web UI for Large Language Models.
@@ -388,6 +392,8 @@ python download-model.py organization/model
 ```
 
 Run `python download-model.py --help` to see all the options.
+
+<img src="assets/orion-avatar.png" alt="Orion Avatar" width="100" align="right"/>
 
 ## Documentation
 
